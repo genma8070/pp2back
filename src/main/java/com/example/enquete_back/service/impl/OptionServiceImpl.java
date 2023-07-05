@@ -10,16 +10,5 @@ public class OptionServiceImpl implements OptionService {
 	 @Autowired
 	    private OptionDao optionDao;
 
-//	 @Override
-//	 public void addOption(Integer questionId, String optionText) {
-//	     Option option = new Option();
-//	     option.setQuestionId(questionId);
-//	     option.setOptionText(optionText);
-//	     optionDao.save(option);
-//	 }
-
-//	    @Override
-//	    public List<Option> getOptionsByQuestionId(Integer questionId) {
-//	        return questionDao.findAllByQuestionId(questionId);
-//	    }
+//	 
 }

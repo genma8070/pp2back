@@ -2,8 +2,6 @@ package com.example.enquete_back.Controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,13 +17,19 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 
-	@PostMapping("/new_session")	
+	@PostMapping("/new_session")
 	public List<SessionAddVo> addSessionQuestion(@RequestBody SessionAddVo sessionReq) {
 		return questionService.addSessionQuestion(sessionReq);
-		
+
 	};
-	@PostMapping("/go_db")	
-	public SessionAddVo addQuestion (@RequestBody SessionAddVo sessionReq) {
-	return questionService.addQuestion(sessionReq);
+
+	@PostMapping("/go_db")
+	public SessionAddVo addQuestion(@RequestBody SessionAddVo sessionReq) {
+		return questionService.addQuestion(sessionReq);
+	};
+
+	@PostMapping("/find_q_o")
+	public SessionAddVo findQuestionAndOptionsById(@RequestBody SessionAddVo sessionReq) {
+		return questionService.findQuestionAndOptionsById(sessionReq);
 	};
 }

@@ -32,9 +32,6 @@ public interface QuestionnaireDao extends JpaRepository<Questionnaire, Integer> 
 	@Query(value ="select * from questionnaire LIMIT :inputIndex, 10",nativeQuery =true)
 	public List<Map<String, Object>> findAllQuestionnairePaging(@Param("inputIndex") Integer index);
 	
-//	@Query(value = "select * FROM questionnaire where title LIKE %:inputTitle% ", nativeQuery = true)
-//	public List<Map<String, Object>> findQuestionnaireByTitle(@Param("inputTitle") String title);
-	
 	
 	@Query(value = "SELECT * "
 			+ "FROM questionnaire "

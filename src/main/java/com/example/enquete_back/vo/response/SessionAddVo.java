@@ -2,16 +2,16 @@ package com.example.enquete_back.vo.response;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SessionAddVo {
 	private List<SessionAddVo> list;
-	
-	private static int idCounter = 0;
 
 	private Integer questionSessionId;
 	
-	
 	private Integer questionnaireId;
 	
+	private Integer questionId;
 	
 	private Boolean questionType;
 	
@@ -22,17 +22,7 @@ public class SessionAddVo {
 	private Boolean isRequired;
 	
 	private String options;
-	 @Override
-	public String toString() {
-	    return "SessionAddVo{" +
-	            "questionSessionId=" + questionSessionId +
-	            ", questionnaireId=" + questionnaireId +
-	            ", questionType=" + questionType +
-	            ", questionText='" + questionText + '\'' +
-	            ", isRequired=" + isRequired +
-	            ", options='" + options + '\'' +
-	            '}';
-	}
+	
 
 	public Integer getQuestionSessionId() {
 		return questionSessionId;
@@ -82,32 +72,13 @@ public class SessionAddVo {
 		this.options = options;
 	}
 
-	public SessionAddVo(Integer questionnaireId, Boolean questionType, String questionText, Boolean isRequired,
-			String options) {
-		super();
-		this.questionSessionId = ++idCounter;
-		this.questionnaireId = questionnaireId;
-		this.questionType = questionType;
-		this.questionText = questionText;
-		this.isRequired = isRequired;
-		this.options = options;
-	}
 
 	public SessionAddVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public SessionAddVo(Integer questionSessionId, Integer questionnaireId, Boolean questionType, String questionText,
-			Boolean isRequired, String options) {
-		super();
-		this.questionSessionId = questionSessionId;
-		this.questionnaireId = questionnaireId;
-		this.questionType = questionType;
-		this.questionText = questionText;
-		this.isRequired = isRequired;
-		this.options = options;
-	}
+	
 
 	public List<SessionAddVo> getList() {
 		return list;
@@ -122,4 +93,50 @@ public class SessionAddVo {
 		this.list = list;
 	}
 
+
+	public Integer getQuestionId() {
+		return questionId;
+	}
+
+	public void setQuestionId(Integer questionId) {
+		this.questionId = questionId;
+	}
+
+	public SessionAddVo(List<SessionAddVo> list, Integer questionSessionId, Integer questionnaireId, Integer questionId,
+			Boolean questionType, String questionText, Boolean isRequired, String options) {
+		super();
+		this.list = list;
+		this.questionSessionId = questionSessionId;
+		this.questionnaireId = questionnaireId;
+		this.questionId = questionId;
+		this.questionType = questionType;
+		this.questionText = questionText;
+		this.isRequired = isRequired;
+		this.options = options;
+	}
+
+	public SessionAddVo(Integer questionSessionId, Integer questionnaireId, Integer questionId, Boolean questionType,
+			String questionText, Boolean isRequired, String options) {
+		super();
+		this.questionSessionId = questionSessionId;
+		this.questionnaireId = questionnaireId;
+		this.questionId = questionId;
+		this.questionType = questionType;
+		this.questionText = questionText;
+		this.isRequired = isRequired;
+		this.options = options;
+	}
+
+	public SessionAddVo(Integer questionSessionId, Integer questionnaireId, Boolean questionType, String questionText,
+			Boolean isRequired, String options) {
+		super();
+		this.questionSessionId = questionSessionId;
+		this.questionnaireId = questionnaireId;
+		this.questionType = questionType;
+		this.questionText = questionText;
+		this.isRequired = isRequired;
+		this.options = options;
+	}
+
+	
 }

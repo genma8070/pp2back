@@ -1,16 +1,19 @@
 package com.example.enquete_back.repository;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.enquete_back.entity.Question;
-import com.example.enquete_back.entity.Questionnaire;
 
 @Repository
-public interface QuestionDao extends JpaRepository<Question, Integer>{
+public interface QuestionDao extends JpaRepository<Question, Integer> {
 
 	@Transactional
 	@Modifying
@@ -21,6 +24,18 @@ public interface QuestionDao extends JpaRepository<Question, Integer>{
 	@Query(value = "SELECT * FROM question ORDER BY question_id DESC LIMIT 1", nativeQuery = true)
 	public Question findNewstQuestion();
 
-//	public void addOption(Integer questionId, String optionText);
+	@Query(value = "SELECT * FROM question WHERE questionnaire_id = :inputId", nativeQuery = true)
+	public List<Map<String, Object>> findQuestionByQuestionnaireId(@Param("inputId") Integer questionnaireId);
+
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update question "
+			+ "set question_type = :inputQuestionType, question_text = :inputQuestionText, "
+			+ "is_required = :inputIsRequired "
+			+ "WHERE question_id = :inputId", nativeQuery = true)
+	public void updateEnquete(@Param("inputQuestionType") Boolean type,@Param("inputQuestionText") String text,
+			@Param("inputIsRequired") Boolean is,@Param("inputId") Integer id);
+	
 
 }
