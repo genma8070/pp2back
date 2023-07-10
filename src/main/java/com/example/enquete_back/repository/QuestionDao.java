@@ -34,8 +34,14 @@ public interface QuestionDao extends JpaRepository<Question, Integer> {
 			+ "set question_type = :inputQuestionType, question_text = :inputQuestionText, "
 			+ "is_required = :inputIsRequired "
 			+ "WHERE question_id = :inputId", nativeQuery = true)
-	public void updateEnquete(@Param("inputQuestionType") Boolean type,@Param("inputQuestionText") String text,
+	public void updateQuestion(@Param("inputQuestionType") Boolean type,@Param("inputQuestionText") String text,
 			@Param("inputIsRequired") Boolean is,@Param("inputId") Integer id);
 	
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE q FROM question q WHERE question_id = :inputId", nativeQuery = true)
+	public void deleteQuestionOptions(@Param("inputId") Integer id);
+
+
 
 }

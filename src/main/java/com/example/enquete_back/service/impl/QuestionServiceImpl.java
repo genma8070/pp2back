@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import com.example.enquete_back.repository.OptionDao;
 import com.example.enquete_back.repository.QuestionDao;
 import com.example.enquete_back.service.ifs.QuestionService;
-import com.example.enquete_back.vo.request.QuestionRequest;
-import com.example.enquete_back.vo.response.QuestionResponse;
 import com.example.enquete_back.vo.response.SessionAddVo;
 
 @Service
@@ -21,19 +19,6 @@ public class QuestionServiceImpl implements QuestionService {
 	QuestionDao questionDao;
 	@Autowired
 	OptionDao optionDao;
-
-	@Override
-	public QuestionResponse addQuestion(QuestionRequest newReq) {
-
-		Boolean questionType = newReq.getQuestionType();
-		Integer questionnaireId = newReq.getQuestionId();
-		String questionText = newReq.getQuestionText();
-		Boolean isRequired = newReq.getIsRequired();
-		questionDao.addQuestion(questionType, questionnaireId, questionText, isRequired);
-
-		return new QuestionResponse();
-
-	}
 
 	@Override
 	public SessionAddVo addQuestion(SessionAddVo sessionReq) {
@@ -51,28 +36,49 @@ public class QuestionServiceImpl implements QuestionService {
 				optionDao.addOption(questionId, op);
 			}
 		}
-		
+
 		return new SessionAddVo();
 
 	}
 
 	
 	@Override
+	public List<SessionAddVo> deleteSessionQuestion(SessionAddVo sessionReq) {
+		List<SessionAddVo> questions = (List<SessionAddVo>) sessionReq.getList();
+		List<Integer> s = sessionReq.getSessions();
+		if (s.size() == questions.size()) {
+			questions.clear();
+			return questions;
+		}
+		System.out.println(questions);
+		System.out.println(s);
+		int x = 0;
+		for (x = s.size()- 1 ; x >= 0; x--) {
+			questions.remove((int)s.get(x));
+			System.out.println(s.get(x));
+		}
+
+		return questions;
+
+	}
+
+	@Override
 	public List<SessionAddVo> addSessionQuestion(SessionAddVo sessionReq) {
 
 		List<SessionAddVo> questions = (List<SessionAddVo>) sessionReq.getList();
-	
+
 		if (questions == null) {
 			questions = new ArrayList<>();
 		}
-		Integer questionSessionId = questions.size() + 1;
+		Integer questionSessionId = sessionReq.getQuestionSessionId();
 		Integer questionnaireId = sessionReq.getQuestionnaireId();
 		Boolean questionType = sessionReq.getQuestionType();
 		String questionText = sessionReq.getQuestionText();
 		Boolean isRequired = sessionReq.getIsRequired();
 		String options = sessionReq.getOptions();
 
-		SessionAddVo add = new SessionAddVo(questionSessionId, questionnaireId, questionType, questionText, isRequired, options);
+		SessionAddVo add = new SessionAddVo(questionSessionId, questionnaireId, questionType, questionText, isRequired,
+				options);
 		questions.add(add);
 
 		return questions;
@@ -113,18 +119,24 @@ public class QuestionServiceImpl implements QuestionService {
 					e.setQuestionSessionId(i);
 					i++;
 					List<Map<String, Object>> res2 = optionDao.findOptionByQuestionId((Integer) map.get(item));
-					List<String> str = new ArrayList<>();
+					List<String> textStr = new ArrayList<>();
+					List<String> idStr = new ArrayList<>();
 					for (Map<String, Object> map2 : res2) {
 						for (String item2 : map2.keySet()) {
 							switch (item2) {
 							case "option_text":
-								str.add((String) map2.get(item2));
+								textStr.add((String) map2.get(item2));
+								break;
+							case "option_id":
+								idStr.add(map2.get(item2).toString());
 								break;
 							}
 						}
 					}
-					String opstr = String.join(";", str);
-					e.setOptions(opstr);
+					String opStr = String.join(";", textStr);
+					String opIdStr = String.join(";", idStr);
+					e.setOptions(opStr);
+					e.setOptionsId(opIdStr);
 					break;
 				}
 			}
@@ -136,5 +148,65 @@ public class QuestionServiceImpl implements QuestionService {
 		return new SessionAddVo(eList);
 	}
 
-}
+	@Override
+	public SessionAddVo editQuestionAndOption(SessionAddVo req) {
+		Boolean type = req.getQuestionType();
+		String text = req.getQuestionText();
+		Boolean is = req.getIsRequired();
+		Integer id = req.getQuestionId();
+		questionDao.updateQuestion(type, text, is, id);
 
+		String options = req.getOptions();
+		String optionIds = req.getOptionsId();
+		String[] opArr = options.split(";");
+		String[] opIdArr = optionIds.split(";");
+
+		if (opArr.length > opIdArr.length) {
+			for (int i = 0; i <= opArr.length - 1; i++) {
+				if (i <= opIdArr.length - 1) {
+					optionDao.updateOptions(opArr[i], Integer.parseInt(opIdArr[i]));
+				} else {
+					optionDao.addOption(id, opArr[i]);
+				}
+
+			}
+		} else if (opArr.length < opIdArr.length) {
+			for (int i = 0; i <= opIdArr.length - 1; i++) {
+				if (i <= opArr.length - 1) {
+					optionDao.updateOptions(opArr[i], Integer.parseInt(opIdArr[i]));
+				} else {
+					optionDao.deleteQuestionOptions(Integer.parseInt(opIdArr[i]));
+				}
+
+			}
+		} else {
+			for (int i = 0; i <= opIdArr.length - 1; i++) {
+				optionDao.updateOptions(opArr[i], Integer.parseInt(opIdArr[i]));
+			}
+
+		}
+
+		return new SessionAddVo("更新完成");
+
+	}
+
+	@Override
+	public SessionAddVo deleteQuestionAndOption(SessionAddVo sessionReq) {
+		optionDao.deleteOptionsByQuestionId(sessionReq.getQuestionId());
+		questionDao.deleteById(sessionReq.getQuestionId());
+
+		return new SessionAddVo("刪除完成");
+
+	};
+//	@Override
+//	public SessionAddVo deleteQuestionAndOption(SessionAddVo sessionReq) {
+//		List<Integer> id = sessionReq.getSessions();
+//		for(int x = 0; x < id.size(); x++) {
+//		optionDao.deleteOptionsByQuestionId(id.get(x));
+//		questionDao.deleteById(id.get(x));
+//		}
+//		return new SessionAddVo("刪除完成");
+//
+//	};
+
+}

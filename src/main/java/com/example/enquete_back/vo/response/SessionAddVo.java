@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SessionAddVo {
 	private List<SessionAddVo> list;
+	
+	private List<Integer> sessions;
 
 	private Integer questionSessionId;
 	
@@ -15,13 +17,15 @@ public class SessionAddVo {
 	
 	private Boolean questionType;
 	
-
 	private String questionText;
-	
-	
+		
 	private Boolean isRequired;
 	
 	private String options;
+	
+	private String optionsId;
+	
+	private String message;
 	
 
 	public Integer getQuestionSessionId() {
@@ -136,6 +140,49 @@ public class SessionAddVo {
 		this.questionText = questionText;
 		this.isRequired = isRequired;
 		this.options = options;
+	}
+
+	public String getOptionsId() {
+		return optionsId;
+	}
+
+	public void setOptionsId(String optionsId) {
+		this.optionsId = optionsId;
+	}
+
+	public SessionAddVo(List<SessionAddVo> list, Integer questionSessionId, Integer questionnaireId, Integer questionId,
+			Boolean questionType, String questionText, Boolean isRequired, String options, String optionsId) {
+		super();
+		this.list = list;
+		this.questionSessionId = questionSessionId;
+		this.questionnaireId = questionnaireId;
+		this.questionId = questionId;
+		this.questionType = questionType;
+		this.questionText = questionText;
+		this.isRequired = isRequired;
+		this.options = options;
+		this.optionsId = optionsId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public SessionAddVo(String message) {
+		super();
+		this.message = message;
+	}
+
+	public List<Integer> getSessions() {
+		return sessions;
+	}
+
+	public void setSessions(List<Integer> sessions) {
+		this.sessions = sessions;
 	}
 
 	

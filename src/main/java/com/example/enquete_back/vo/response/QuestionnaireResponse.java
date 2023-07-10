@@ -22,6 +22,8 @@ public class QuestionnaireResponse {
 	private LocalDate endTime;
 
 	private Boolean status;
+	
+	private String message;
 
 	public Integer getQuestionnaireId() {
 		return questionnaireId;
@@ -106,6 +108,19 @@ public class QuestionnaireResponse {
 	public QuestionnaireResponse(List<QuestionnaireResponse> list) {
 		super();
 		this.list = list;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public QuestionnaireResponse(String message) {
+		super();
+		this.message = message;
 	}
 
 }

@@ -22,6 +22,12 @@ public class QuestionController {
 		return questionService.addSessionQuestion(sessionReq);
 
 	};
+	
+	@PostMapping("/delete_session")
+	public List<SessionAddVo> deleteSessionQuestion(@RequestBody SessionAddVo sessionReq) {
+		return questionService.deleteSessionQuestion(sessionReq);
+
+	};
 
 	@PostMapping("/go_db")
 	public SessionAddVo addQuestion(@RequestBody SessionAddVo sessionReq) {
@@ -31,5 +37,15 @@ public class QuestionController {
 	@PostMapping("/find_q_o")
 	public SessionAddVo findQuestionAndOptionsById(@RequestBody SessionAddVo sessionReq) {
 		return questionService.findQuestionAndOptionsById(sessionReq);
+	};
+	
+	@PostMapping("/update_qo")
+	public SessionAddVo editQuestionAndOption(@RequestBody SessionAddVo sessionReq) {
+		return questionService.editQuestionAndOption(sessionReq);
+	};
+	
+	@PostMapping("/delete_qo")
+	public SessionAddVo deleteQuestionAndOption(@RequestBody SessionAddVo sessionReq) {
+		return questionService.deleteQuestionAndOption(sessionReq);
 	};
 }

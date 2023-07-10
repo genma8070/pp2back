@@ -25,9 +25,22 @@ public interface OptionDao extends JpaRepository<Option, Integer> {
 
 	@Transactional
 	@Modifying
-	@Query(value = "update options " + "set question_type = :inputQuestionType, question_text = :inputQuestionText, "
-			+ "is_required = :inputIsRequired " + "WHERE question_id = :inputId", nativeQuery = true)
-	public void updateEnquete(@Param("inputQuestionType") Boolean type, @Param("inputQuestionText") String text,
-			@Param("inputIsRequired") Boolean is, @Param("inputId") Integer id);
+	@Query(value = "update options " + "set option_text = :inputQuestionText "
+			+ "WHERE option_id = :inputId", nativeQuery = true)
+	public void updateOptions(@Param("inputQuestionText") String text,
+			@Param("inputId") Integer id);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE o "
+			+ "FROM options o "
+			+ "WHERE option_id = :inputId", nativeQuery = true)
+	public void deleteQuestionOptions(@Param("inputId") Integer id);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "DELETE o FROM options o WHERE question_id = :inputId", nativeQuery = true)
+	public void deleteOptionsByQuestionId(@Param("inputId") Integer id);
+
 
 }

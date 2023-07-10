@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "enquete_back")
+@Table(name = "answer")
 public class Answer {
 	
 
