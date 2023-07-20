@@ -17,20 +17,17 @@ public class Answer {
 	@Column(name = "questionnaire_id")
 	private Integer questionnaireId;
 	
-	@Column(name = "question_id")
-	private Integer questionId;
+	@Column(name = "answer_time")
+	private String answerTime;
 	
 	@Column(name = "selected_options")
 	private String selectedOptions;
-	
-	@Column(name = "answer_text")
-	private String answerText;
 	
 	@Column(name = "answer_name")
 	private String answerName;
 	
 	@Column(name = "answer_phone")
-	private Integer answerPhone;
+	private String answerPhone;
 	
 	@Column(name = "answer_email")
 	private String answerEmail;
@@ -54,12 +51,12 @@ public class Answer {
 		this.questionnaireId = questionnaireId;
 	}
 
-	public Integer getQuestionId() {
-		return questionId;
+	public String getAnswerTime() {
+		return answerTime;
 	}
 
-	public void setQuestionId(Integer questionId) {
-		this.questionId = questionId;
+	public void setAnswerTime(String answerTime) {
+		this.answerTime = answerTime;
 	}
 
 	public String getSelectedOptions() {
@@ -70,14 +67,6 @@ public class Answer {
 		this.selectedOptions = selectedOptions;
 	}
 
-	public String getAnswerText() {
-		return answerText;
-	}
-
-	public void setAnswerText(String answerText) {
-		this.answerText = answerText;
-	}
-
 	public String getAnswerName() {
 		return answerName;
 	}
@@ -86,11 +75,11 @@ public class Answer {
 		this.answerName = answerName;
 	}
 
-	public Integer getAnswerPhone() {
+	public String getAnswerPhone() {
 		return answerPhone;
 	}
 
-	public void setAnswerPhone(Integer answerPhone) {
+	public void setAnswerPhone(String answerPhone) {
 		this.answerPhone = answerPhone;
 	}
 
@@ -110,14 +99,13 @@ public class Answer {
 		this.answerAge = answerAge;
 	}
 
-	public Answer(Integer answerId, Integer questionnaireId, Integer questionId, String selectedOptions,
-			String answerText, String answerName, Integer answerPhone, String answerEmail, Integer answerAge) {
+	public Answer(Integer answerId, Integer questionnaireId, String answerTime, String selectedOptions,
+			String answerName, String answerPhone, String answerEmail, Integer answerAge) {
 		super();
 		this.answerId = answerId;
 		this.questionnaireId = questionnaireId;
-		this.questionId = questionId;
+		this.answerTime = answerTime;
 		this.selectedOptions = selectedOptions;
-		this.answerText = answerText;
 		this.answerName = answerName;
 		this.answerPhone = answerPhone;
 		this.answerEmail = answerEmail;
@@ -128,5 +116,6 @@ public class Answer {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 }
+
+	

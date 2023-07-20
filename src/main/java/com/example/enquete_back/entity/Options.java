@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "option")
-public class Option {
+@Table(name = "optionsS")
+public class Options {
 	
 	@Id
 	@Column(name = "option_id")
@@ -43,14 +43,14 @@ public class Option {
 		this.optionText = optionText;
 	}
 
-	public Option(Integer optionId, Integer questionId, String optionText) {
+	public Options(Integer optionId, Integer questionId, String optionText) {
 		super();
 		this.optionId = optionId;
 		this.questionId = questionId;
 		this.optionText = optionText;
 	}
 
-	public Option() {
+	public Options() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -71,7 +71,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
 //		判斷日期是否有誤
 		if (startTime.compareTo(endTime) > 0 || endTime.compareTo(startTime) <= 0) {
-			return new QuestionnaireResponse("開始日期不得晚於結束日期且至少相隔一日");
+			return new QuestionnaireResponse("開始日期不得晚於結束日期且必須至少相隔一日");
 		}
 
 		String title = newReq.getTitle();
@@ -85,7 +85,12 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 		int endDate = endTime.compareTo(now);
 //		判斷問券狀態
 		Boolean status = (startDate <= 0 && endDate >= 0) ? true : false;
-
+		if (startDate < 0) {
+			return new QuestionnaireResponse("開始日期不可早於今日");
+		}
+		if (endDate < 0) {
+			return new QuestionnaireResponse("結束日期須晚於今日");
+		}
 //		防呆不得為空
 		if (title.isEmpty() || description.isEmpty()) {
 			return new QuestionnaireResponse("標題或簡述不得空白");
@@ -93,7 +98,7 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 
 		questionnaireDao.addEnquete(title, description, startTime, endTime, status);
 
-		return new QuestionnaireResponse("新增成功");
+		return new QuestionnaireResponse();
 
 	}
 
@@ -236,6 +241,9 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 		LocalDate startTime = newReq.getStartTime();
 		LocalDate endTime = newReq.getEndTime();
 		Integer index = newReq.getIndex();
+		if (startTime != null && endTime != null && startTime.compareTo(endTime) > 0) {
+			return new QuestionnaireResponse("結束結束時間不可早於開始時間");
+		}
 
 		List<QuestionnaireResponse> eList = new ArrayList<QuestionnaireResponse>();
 
@@ -322,9 +330,9 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 				case "start_time":
 					e.setStartTime(((Date) map.get(item)).toLocalDate());
 					LocalDate now = LocalDate.now();
-					LocalDate startTime =e.getStartTime();
+					LocalDate startTime = e.getStartTime();
 //					比較開始日期與結束日期和當下日期的關係
-					int startDate = startTime.compareTo(now);				
+					int startDate = startTime.compareTo(now);
 //					判斷問券狀態
 					Boolean status = (startDate <= 0) ? true : false;
 					questionnaireDao.updateEnqueteStatus(status, e.getQuestionnaireId());
@@ -333,9 +341,9 @@ public class QuestionnaireServiceImpl implements QuestionnaireService {
 					e.setEndTime(((Date) map.get(item)).toLocalDate());
 //					設定執行方法當下日期
 					LocalDate now2 = LocalDate.now();
-					LocalDate endTime =e.getEndTime();
+					LocalDate endTime = e.getEndTime();
 //					比較開始日期與結束日期和當下日期的關係
-					
+
 					int endDate = endTime.compareTo(now2);
 //					判斷問券狀態
 					Boolean status2 = (endDate >= 0) ? true : false;

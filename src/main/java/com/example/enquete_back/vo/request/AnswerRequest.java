@@ -1,23 +1,25 @@
 package com.example.enquete_back.vo.request;
 
 public class AnswerRequest {
-	private Integer answerId;
+private Integer answerId;
 	
 	private Integer questionnaireId;
 	
-	private Integer questionId;
+	private Integer Index;
 	
 	private String selectedOptions;
 	
-	private String answerText;
+	private String answerTime;
 
 	private String answerName;
 
-	private Integer answerPhone;
+	private String answerPhone;
 	
 	private String answerEmail;
 	
 	private Integer answerAge;
+	
+	private String message;
 
 	public Integer getAnswerId() {
 		return answerId;
@@ -35,13 +37,7 @@ public class AnswerRequest {
 		this.questionnaireId = questionnaireId;
 	}
 
-	public Integer getQuestionId() {
-		return questionId;
-	}
-
-	public void setQuestionId(Integer questionId) {
-		this.questionId = questionId;
-	}
+	
 
 	public String getSelectedOptions() {
 		return selectedOptions;
@@ -51,12 +47,12 @@ public class AnswerRequest {
 		this.selectedOptions = selectedOptions;
 	}
 
-	public String getAnswerText() {
-		return answerText;
+	public String getAnswerTime() {
+		return answerTime;
 	}
 
-	public void setAnswerText(String answerText) {
-		this.answerText = answerText;
+	public void setAnswerTime(String answerTime) {
+		this.answerTime = answerTime;
 	}
 
 	public String getAnswerName() {
@@ -67,11 +63,11 @@ public class AnswerRequest {
 		this.answerName = answerName;
 	}
 
-	public Integer getAnswerPhone() {
+	public String getAnswerPhone() {
 		return answerPhone;
 	}
 
-	public void setAnswerPhone(Integer answerPhone) {
+	public void setAnswerPhone(String answerPhone) {
 		this.answerPhone = answerPhone;
 	}
 
@@ -91,5 +87,19 @@ public class AnswerRequest {
 		this.answerAge = answerAge;
 	}
 
+	public String getMessage() {
+		return message;
+	}
 
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Integer getIndex() {
+		return Index;
+	}
+
+	public void setIndex(Integer index) {
+		Index = index;
+	}
 }

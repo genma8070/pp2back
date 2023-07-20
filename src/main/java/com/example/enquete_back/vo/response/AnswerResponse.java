@@ -1,5 +1,7 @@
 package com.example.enquete_back.vo.response;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -8,19 +10,21 @@ private Integer answerId;
 	
 	private Integer questionnaireId;
 	
-	private Integer questionId;
+	private List<AnswerResponse> b;
 	
 	private String selectedOptions;
 	
-	private String answerText;
+	private String answerTime;
 
 	private String answerName;
 
-	private Integer answerPhone;
+	private String answerPhone;
 	
 	private String answerEmail;
 	
 	private Integer answerAge;
+	
+	private String message;
 
 	public Integer getAnswerId() {
 		return answerId;
@@ -38,12 +42,12 @@ private Integer answerId;
 		this.questionnaireId = questionnaireId;
 	}
 
-	public Integer getQuestionId() {
-		return questionId;
+	public List<AnswerResponse> getB() {
+		return b;
 	}
 
-	public void setQuestionId(Integer questionId) {
-		this.questionId = questionId;
+	public void setB(List<AnswerResponse> b) {
+		this.b = b;
 	}
 
 	public String getSelectedOptions() {
@@ -54,12 +58,12 @@ private Integer answerId;
 		this.selectedOptions = selectedOptions;
 	}
 
-	public String getAnswerText() {
-		return answerText;
+	public String getAnswerTime() {
+		return answerTime;
 	}
 
-	public void setAnswerText(String answerText) {
-		this.answerText = answerText;
+	public void setAnswerTime(String answerTime) {
+		this.answerTime = answerTime;
 	}
 
 	public String getAnswerName() {
@@ -70,11 +74,11 @@ private Integer answerId;
 		this.answerName = answerName;
 	}
 
-	public Integer getAnswerPhone() {
+	public String getAnswerPhone() {
 		return answerPhone;
 	}
 
-	public void setAnswerPhone(Integer answerPhone) {
+	public void setAnswerPhone(String answerPhone) {
 		this.answerPhone = answerPhone;
 	}
 
@@ -94,18 +98,28 @@ private Integer answerId;
 		this.answerAge = answerAge;
 	}
 
-	public AnswerResponse(Integer answerId, Integer questionnaireId, Integer questionId, String selectedOptions,
-			String answerText, String answerName, Integer answerPhone, String answerEmail, Integer answerAge) {
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public AnswerResponse(Integer answerId, Integer questionnaireId, List<AnswerResponse> b, String selectedOptions,
+			String answerTime, String answerName, String answerPhone, String answerEmail, Integer answerAge,
+			String message) {
 		super();
 		this.answerId = answerId;
 		this.questionnaireId = questionnaireId;
-		this.questionId = questionId;
+		this.b = b;
 		this.selectedOptions = selectedOptions;
-		this.answerText = answerText;
+		this.answerTime = answerTime;
 		this.answerName = answerName;
 		this.answerPhone = answerPhone;
 		this.answerEmail = answerEmail;
 		this.answerAge = answerAge;
+		this.message = message;
 	}
 
 	public AnswerResponse() {
@@ -113,6 +127,15 @@ private Integer answerId;
 		// TODO Auto-generated constructor stub
 	}
 
+	
 
+	public AnswerResponse(String message) {
+		super();
+		this.message = message;
+	}
 
+	public AnswerResponse(List<AnswerResponse> b) {
+		super();
+		this.b = b;
+	}
 }

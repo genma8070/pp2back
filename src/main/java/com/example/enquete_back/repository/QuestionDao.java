@@ -15,19 +15,23 @@ import com.example.enquete_back.entity.Question;
 @Repository
 public interface QuestionDao extends JpaRepository<Question, Integer> {
 
+	
+//	新增問題
 	@Transactional
 	@Modifying
 	@Query(value = "INSERT INTO question(question_type, questionnaire_id, question_text, is_required)"
 			+ " VALUES(?1, ?2, ?3, ?4)", nativeQuery = true)
 	public void addQuestion(Boolean questionType, Integer questionnaireId, String questionText, Boolean isRequired);
 
+//	找最新的問題
 	@Query(value = "SELECT * FROM question ORDER BY question_id DESC LIMIT 1", nativeQuery = true)
 	public Question findNewstQuestion();
 
+//	用問卷ID找問題
 	@Query(value = "SELECT * FROM question WHERE questionnaire_id = :inputId", nativeQuery = true)
 	public List<Map<String, Object>> findQuestionByQuestionnaireId(@Param("inputId") Integer questionnaireId);
 
-	
+//	更新問題
 	@Transactional
 	@Modifying
 	@Query(value = "update question "
@@ -36,11 +40,6 @@ public interface QuestionDao extends JpaRepository<Question, Integer> {
 			+ "WHERE question_id = :inputId", nativeQuery = true)
 	public void updateQuestion(@Param("inputQuestionType") Boolean type,@Param("inputQuestionText") String text,
 			@Param("inputIsRequired") Boolean is,@Param("inputId") Integer id);
-	
-	@Transactional
-	@Modifying
-	@Query(value = "DELETE q FROM question q WHERE question_id = :inputId", nativeQuery = true)
-	public void deleteQuestionOptions(@Param("inputId") Integer id);
 
 
 

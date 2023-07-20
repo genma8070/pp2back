@@ -2,6 +2,7 @@ package com.example.enquete_back.vo.response;
 
 import java.util.List;
 
+import com.example.enquete_back.entity.Options;
 import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class SessionAddVo {
@@ -9,6 +10,8 @@ public class SessionAddVo {
 	
 	private List<Integer> sessions;
 
+	private List<Options> op;
+	
 	private Integer questionSessionId;
 	
 	private Integer questionnaireId;
@@ -79,7 +82,7 @@ public class SessionAddVo {
 
 	public SessionAddVo() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	
@@ -183,6 +186,32 @@ public class SessionAddVo {
 
 	public void setSessions(List<Integer> sessions) {
 		this.sessions = sessions;
+	}
+
+	public List<Options> getOp() {
+		return op;
+	}
+
+	public void setOp(List<Options> op) {
+		this.op = op;
+	}
+
+	public SessionAddVo(List<SessionAddVo> list, List<Integer> sessions, List<Options> op, Integer questionSessionId,
+			Integer questionnaireId, Integer questionId, Boolean questionType, String questionText, Boolean isRequired,
+			String options, String optionsId, String message) {
+		super();
+		this.list = list;
+		this.sessions = sessions;
+		this.op = op;
+		this.questionSessionId = questionSessionId;
+		this.questionnaireId = questionnaireId;
+		this.questionId = questionId;
+		this.questionType = questionType;
+		this.questionText = questionText;
+		this.isRequired = isRequired;
+		this.options = options;
+		this.optionsId = optionsId;
+		this.message = message;
 	}
 
 	
