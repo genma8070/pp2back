@@ -18,17 +18,19 @@ public class UserController {
 	UserService userService;
 
 
-//	用id找尋該回答者資料
+//	註冊新帳號
 	@PostMapping("/new_user")
 	public UserResponse newUser(@RequestBody UserRequest req) {
 		return userService.newUser(req);
 	};
 	
+//	登入
 	@PostMapping("/login")
 	public UserResponse login(@RequestBody UserRequest req) {
 		return userService.login(req);
 	};
 	
+//	更改權限
 	@PostMapping("/change_position")
 	public UserResponse changePosition(@RequestBody UserRequest req) {
 		return userService.changePosition(req);
@@ -40,6 +42,7 @@ public class UserController {
 		return userService.findAll();
 	};
 	
+//	取得該分頁所有回答者資料
 	@PostMapping("/find_pag_user")
 	public UserResponse findAllPaging(@RequestBody UserRequest req) {
 		return userService.findAllPaging(req);

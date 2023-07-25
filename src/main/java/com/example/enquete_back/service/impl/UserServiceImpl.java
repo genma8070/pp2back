@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserDao userDao;
 
+//	註冊新帳號
 	public UserResponse newUser(UserRequest req) {
 		String account = req.getAccount();
 		String password = req.getPassword();
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
 		return new UserResponse("註冊成功");
 	}
 
+//	登入
 	public UserResponse login(UserRequest req) {
 		String account = req.getAccount();
 		String password = req.getPassword();
@@ -59,14 +61,16 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	
+//	取得該分頁所有回答者資料
 	public UserResponse findAllPaging(UserRequest req) {
 		List<UserResponse> eList = new ArrayList<UserResponse>();
 
-//		輸入INDEX找尋該頁號的問卷
+//		輸入INDEX找尋該頁號的回答者
 		Integer index = req.getIndex()+1;
 		List<Map<String, Object>> res = userDao.findAllUserPaging(index);
 
-//		將找出的問卷物件重組
+//		將找出的回答者物件重組
 		for (Map<String, Object> map : res) {
 			UserResponse e = new UserResponse();
 			for (String item : map.keySet()) {
@@ -91,14 +95,13 @@ public class UserServiceImpl implements UserService {
 		return new UserResponse(eList);
 	}
 	
+//	取得所有回答者資料
 	public UserResponse findAll() {
 		List<UserResponse> eList = new ArrayList<UserResponse>();
-
-//		輸入INDEX找尋該頁號的問卷
 		
 		List<Map<String, Object>> res = userDao.findAllUser();
 
-//		將找出的問卷物件重組
+//		將找出的回答者物件重組
 		for (Map<String, Object> map : res) {
 			UserResponse e = new UserResponse();
 			for (String item : map.keySet()) {
@@ -123,6 +126,7 @@ public class UserServiceImpl implements UserService {
 		return new UserResponse(eList);
 	}
 
+//	更改權限
 	public UserResponse changePosition(UserRequest req) {
 		String account = req.getAccount();
 		String password = req.getPassword();
